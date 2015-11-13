@@ -4,7 +4,7 @@
 	
 	$(document).ready(function() {
 		console.log('I\'m ready!');
-		console.log('Timestamp: ' + new Date().toUTCString());
+		console.log('Timestamp ' + new Date().toUTCString());
 	});
 	
 })();
