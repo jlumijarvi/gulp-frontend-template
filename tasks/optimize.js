@@ -5,8 +5,13 @@ var vinylPaths = require('vinyl-paths');
 var $ = utils.plugins;
 
 gulp.task('release', ['build', 'clean-release'], function() {
+    var assets = [
+        config.debug + '**/*.*',
+        '!' + config.debug + 'app/**/*.*',
+        '!' + config.debug + 'styles/**/*.*'
+    ];
     return gulp
-        .src(config.debug + '**/*.*')
+        .src(assets)
         .pipe(gulp.dest(config.release));
 });
 
@@ -17,7 +22,7 @@ gulp.task('clean-release', function() {
 gulp.task('optimize', ['build', 'release'], function (done) {
 
     return gulp
-        .src(config.release + config.index)
+        .src(config.debug + config.index)
         .pipe($.plumber())
         .pipe($.useref())
         .pipe($.if('**/*.js', vinylPaths(utils.clean)))
