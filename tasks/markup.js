@@ -5,10 +5,9 @@ var utils = require('../gulp.utils')();
 gulp.task('markup', ['clean-markup'], function () {
     return gulp
         .src(config.src + 'app/**/*.html')
-        .pipe($.minifyHtml({empty: true}))
-        .pipe(gulp.dest(config.build + 'app/'));
+        .pipe(gulp.dest(config.debug + 'app/'));
 });
 
 gulp.task('clean-markup', function() {
-    return utils.clean(config.build + 'app/**/*.html');
+    return utils.clean(config.debug + 'app/**/*.html');
 });

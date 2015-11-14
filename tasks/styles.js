@@ -9,9 +9,9 @@ gulp.task('styles', ['clean-styles'], function () {
         .pipe($.plumber())
         .pipe($.sass.sync())
         .pipe($.autoprefixer())
-        .pipe(gulp.dest(config.build + 'styles/'))
+        .pipe(gulp.dest(config.debug + 'styles/'))
 });
 
 gulp.task('clean-styles', function () {
-    return utils.clean(config.build + 'app/**/*.css');
+    return utils.clean(config.debug + 'app/**/*.css');
 });

@@ -4,21 +4,29 @@ var utils = require('../gulp.utils')();
 var vinylPaths = require('vinyl-paths');
 var $ = utils.plugins;
 
-gulp.task('optimize', ['build'], function () {
-
-    var cssFilter = $.filter('**/*.css', { restore: true });
-    var jsFilter = $.filter('**/*.js', { restore: true });
+gulp.task('release', ['build', 'clean-release'], function() {
     return gulp
-        .src(config.build + '**/*.*')
-        .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(vinylPaths(utils.clean))
-        .pipe($.rename({ suffix: '.min' }))
-        .pipe(gulp.dest(utils.base))
-        .pipe(cssFilter.restore)
-        .pipe(jsFilter)
-        .pipe($.uglify())
-        .pipe(vinylPaths(utils.clean))
-        .pipe($.rename({ suffix: '.min' }))
-        .pipe(gulp.dest(utils.base));
+        .src(config.debug + '**/*.*')
+        .pipe(gulp.dest(config.release));
+});
+
+gulp.task('clean-release', function() {
+    return utils.clean(config.release);
+});
+
+gulp.task('optimize', ['build', 'release'], function (done) {
+
+    return gulp
+        .src(config.release + config.index)
+        .pipe($.plumber())
+        .pipe($.useref())
+        .pipe($.if('**/*.js', vinylPaths(utils.clean)))
+        .pipe($.if('**/*.js', $.uglify()))
+        .pipe($.if('**/*.js', $.rev()))
+        .pipe($.if('**/*.css', vinylPaths(utils.clean)))
+        .pipe($.if('**/*.css', $.csso()))
+        .pipe($.if('**/*.css', $.rev()))
+        .pipe($.revReplace())
+        .pipe($.minifyHtml())
+        .pipe(gulp.dest(config.release));
 });

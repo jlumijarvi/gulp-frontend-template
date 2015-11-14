@@ -5,9 +5,9 @@ var utils = require('../gulp.utils')();
 gulp.task('images', ['clean-images'], function () {
     return gulp
         .src(config.src + 'images/**/*.*')
-        .pipe(gulp.dest(config.build + 'images/'));
+        .pipe(gulp.dest(config.debug + 'images/'));
 });
 
 gulp.task('clean-images', function () {
-    return utils.clean(config.build + 'images/**/*.*');
+    return utils.clean(config.debug + 'images/**/*.*');
 });
