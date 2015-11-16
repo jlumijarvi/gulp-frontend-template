@@ -12,9 +12,9 @@ module.exports = function () {
 		concatDirs: concatDirs
 	};
 
-	function clean(files, cb) {
+	function clean(files) {
 		log('Deleting ' + files);
-		return del(files, cb);
+		return del(files);
 	};
 	
 	function cleanSync(files) {
