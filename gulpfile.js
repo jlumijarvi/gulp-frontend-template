@@ -9,10 +9,22 @@ var $ = utils.plugins;
 var tasks = requireDir('./tasks');
 
 function inject() {
-    var sources = [config.debug + config.styles, config.debug + config.scripts];
+    var sources = [
+        config.debug + config.styles,
+        config.debug + 'app/app.js',
+        config.debug + config.scripts
+    ];
+
+    var wiredep = require('wiredep').stream;
+    var options = {
+        bowerJson: config.bower.json,
+        directory: config.bower.directory
+    };
+
     return gulp
         .src(config.src + config.index)
         .pipe($.inject(gulp.src(sources, { cwd: config.debug }), { read: false, addRootSlash: false }))
+        .pipe(wiredep(options))
         .pipe(gulp.dest(config.debug));
 }
 
@@ -42,21 +54,22 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(config.src + config.index, ['inject']);
-    gulp.watch(config.src + config.favicon, ['favicon']);
-    gulp.watch(config.src + config.markup, ['markup']);
-    gulp.watch(config.src + config.ts, ['scripts']);
-    gulp.watch(config.src + config.js, ['scripts']);
-    gulp.watch(config.src + config.sass, ['styles']);
-    gulp.watch(config.src + config.images, ['images']);
+    watch(config.src + config.index, ['inject']);
+    watch(config.src + config.favicon, ['favicon']);
+    watch(config.src + config.markup, ['markup']);
+    watch(config.src + config.ts, ['scripts']);
+    watch(config.src + config.js, ['scripts']);
+    watch(config.src + config.sass, ['styles']);
+    watch(config.src + config.images, ['images']);
+    watch(config.src + config.images, ['videos']);
 });
 
 // Static server
 gulp.task('browser-sync', function () {
-    
+
     var baseDir = './build/debug/';
     var watchDir = config.debug;
-    
+
     browserSync.init({
         server: {
             baseDir: baseDir

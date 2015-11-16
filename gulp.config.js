@@ -14,10 +14,15 @@ module.exports = function () {
 		ts: 'app/**/*.ts',
 		js: 'app/**/*.js',
 		scripts: 'app/**/*.js',
+		less: 'styles/**/*.less',
 		sass: 'styles/**/*.scss',
 		styles: 'styles/**/*.css',
 		images: 'images/**/*.*',
-		videos: 'videos/**/*.*'
+		videos: 'videos/**/*.*',
+		bower: {
+			json: require(__dirname + '/bower.json'),
+			directory: __dirname + '/bower_components/'
+		}
 	};
 
 	return config;

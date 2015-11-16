@@ -4,10 +4,10 @@ var utils = require('../gulp.utils')();
 
 gulp.task('markup', ['clean-markup'], function () {
     return gulp
-        .src(config.src + 'app/**/*.html')
+        .src(config.src + config.markup)
         .pipe(gulp.dest(config.debug + 'app/'));
 });
 
 gulp.task('clean-markup', function() {
-    return utils.clean(config.debug + 'app/**/*.html');
+    return utils.clean(config.debug + config.markup);
 });

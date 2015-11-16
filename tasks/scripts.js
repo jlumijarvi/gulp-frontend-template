@@ -19,5 +19,5 @@ gulp.task('scripts', ['clean-scripts'], function () {
 });
 
 gulp.task('clean-scripts', function () {
-    return utils.clean(config.debug + 'app/**/*.js');
+    return utils.clean(config.debug + config.scripts);
 });

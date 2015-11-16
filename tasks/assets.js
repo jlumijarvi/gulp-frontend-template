@@ -6,22 +6,22 @@ gulp.task('assets', ['favicon', 'images', 'videos'])
 
 gulp.task('images', ['clean-images'], function () {
     return gulp
-        .src(config.src + 'images/**/*.*')
+        .src(config.src + config.images)
         .pipe(gulp.dest(config.debug + 'images/'));
 });
 
 gulp.task('clean-images', function () {
-    return utils.clean(config.debug + 'images/**/*.*');
+    return utils.clean(config.debug + config.images);
 });
 
 gulp.task('videos', ['clean-videos'], function () {
     return gulp
-        .src(config.src + 'videos/**/*.*')
+        .src(config.src + config.videos)
         .pipe(gulp.dest(config.debug + 'videos/'));
 });
 
 gulp.task('clean-videos', function () {
-    return utils.clean(config.debug + 'videos/**/*.*');
+    return utils.clean(config.debug + config.videos);
 });
 
 gulp.task('favicon', function () {

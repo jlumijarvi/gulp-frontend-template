@@ -4,16 +4,17 @@ var utils = require('../gulp.utils')();
 var $ = utils.plugins;
 
 /**
- * Compile less to css
+ * Compile less and sass to css
  * @return {Stream}
  */
 gulp.task('styles', ['clean-styles'], function () {
     return gulp
-        .src(config.src + 'styles/**/*.scss')
+        .src([config.src + config.less, config.src + config.sass])
         .pipe($.plumber())
-        .pipe($.sass.sync())
+        .pipe($.if('**/*.less', $.less()))
+        .pipe($.if('**/*.scss', $.sass()))
         .pipe($.autoprefixer())
-        .pipe(gulp.dest(config.debug + 'styles/'))
+        .pipe(gulp.dest(config.debug + 'styles/'));
 });
 
 /**
@@ -21,5 +22,5 @@ gulp.task('styles', ['clean-styles'], function () {
  * @param  {Function} cb - callback when complete
  */
 gulp.task('clean-styles', function () {
-    return utils.clean(config.debug + 'app/**/*.css');
+    return utils.clean(config.debug + config.styles);
 });
