@@ -5,6 +5,7 @@ module.exports = function () {
 
 	var utils = {
 		clean: clean,
+		cleanSync: cleanSync,
 		log: log,
 		plugins: $,
 		base: base,
@@ -14,6 +15,11 @@ module.exports = function () {
 	function clean(files) {
 		log('Deleting ' + files);
 		return del(files);
+	};
+	
+	function cleanSync(files) {
+		log('Deleting ' + files);
+		return del.sync(files);
 	};
 
 	function log(msg) {
