@@ -14,6 +14,7 @@ module.exports = function () {
 		ts: 'app/**/*.ts',
 		js: 'app/**/*.js',
 		scripts: 'app/**/*.js',
+		less: 'styles/**/*.less',
 		sass: 'styles/**/*.scss',
 		styles: 'styles/**/*.css',
 		images: 'images/**/*.*',

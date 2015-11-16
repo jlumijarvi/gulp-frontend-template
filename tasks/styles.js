@@ -9,7 +9,7 @@ var $ = utils.plugins;
  */
 gulp.task('styles', ['clean-styles'], function () {
     return gulp
-        .src(config.src + 'styles/**/*.scss')
+        .src(config.src + config.sass)
         .pipe($.plumber())
         .pipe($.sass.sync())
         .pipe($.autoprefixer())
@@ -21,5 +21,5 @@ gulp.task('styles', ['clean-styles'], function () {
  * @param  {Function} cb - callback when complete
  */
 gulp.task('clean-styles', function () {
-    return utils.clean(config.debug + 'app/**/*.css');
+    return utils.clean(config.debug + config.styles);
 });
