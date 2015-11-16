@@ -48,6 +48,22 @@ gulp.task('inject', function () {
     return inject();
 });
 
+gulp.task('compress-release', function() {
+    return gulp
+        .src(config.release + '**/*.*')
+        .pipe($.zip('release.zip'))
+        .pipe(gulp.dest(config.build));
+});
+
+gulp.task('compress-debug', function() {
+    return gulp
+        .src(config.debug + '**/*.*')
+        .pipe($.zip('debug.zip'))
+        .pipe(gulp.dest(config.build));
+});
+
+gulp.task('compress', ['compress-release', 'compress-debug']);
+
 gulp.task('clean', function () {
     utils.log('Cleaning everything...')
     return utils.clean(config.build);
