@@ -16,6 +16,12 @@ function inject() {
         .pipe(gulp.dest(config.debug));
 }
 
+function watch(files, task) {
+    return $.watch(files, $.batch(function (events, done) {
+        gulp.start(task, done);
+    }));
+}
+
 gulp.task('build', ['scripts', 'styles', 'images', 'favicon', 'other'], function () {
     return inject();
 });
@@ -54,8 +60,8 @@ gulp.task('watch', function () {
 // Static server
 gulp.task('browser-sync', function () {
     
-    var baseDir = argv.r ? './build/release/' : './build/debug/';
-    var watchDir = argv.r ? config.release : config.debug;
+    var baseDir = './build/debug/';
+    var watchDir = config.debug;
     
     browserSync.init({
         server: {

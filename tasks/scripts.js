@@ -3,18 +3,17 @@ var config = require('../gulp.config')();
 var utils = require('../gulp.utils')();
 var $ = utils.plugins;
 
-
-var jsFilter = $.filter('**/*.js', { restore: true });
-var tsFilter = $.filter('**/*.ts', { restore: true });
-
 gulp.task('scripts', ['clean-scripts'], function () {
+    var jsFilter = $.filter('**/*.js', { restore: true });
+    var tsFilter = $.filter('**/*.ts', { restore: true });
+
     return gulp
         .src(config.src + 'app/**/*.*')
+        .pipe($.plumber())
         .pipe(jsFilter)
         .pipe(gulp.dest(config.debug + 'app/'))
         .pipe(jsFilter.restore)
         .pipe(tsFilter)
-        .pipe($.plumber())
         .pipe($.typescript())
         .pipe(gulp.dest(config.debug + 'app/'))
 });
