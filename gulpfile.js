@@ -36,19 +36,36 @@ gulp.task('inject', function () {
     return inject();
 });
 
+gulp.task('compress-release', function() {
+    return gulp
+        .src(config.release + '**/*.*')
+        .pipe($.zip('release.zip'))
+        .pipe(gulp.dest(config.build));
+});
+
+gulp.task('compress-debug', function() {
+    return gulp
+        .src(config.debug + '**/*.*')
+        .pipe($.zip('debug.zip'))
+        .pipe(gulp.dest(config.build));
+});
+
+gulp.task('compress', ['compress-release', 'compress-debug']);
+
 gulp.task('clean', function () {
     utils.log('Cleaning everything...')
     return utils.clean(config.build);
 });
 
 gulp.task('watch', function () {
-    gulp.watch(config.src + config.index, ['inject']);
-    gulp.watch(config.src + config.favicon, ['favicon']);
-    gulp.watch(config.src + config.markup, ['markup']);
-    gulp.watch(config.src + config.ts, ['scripts']);
-    gulp.watch(config.src + config.js, ['scripts']);
-    gulp.watch(config.src + config.sass, ['styles']);
-    gulp.watch(config.src + config.images, ['images']);
+    watch(config.src + config.index, ['inject']);
+    watch(config.src + config.favicon, ['favicon']);
+    watch(config.src + config.markup, ['markup']);
+    watch(config.src + config.ts, ['scripts']);
+    watch(config.src + config.js, ['scripts']);
+    watch(config.src + config.sass, ['styles']);
+    watch(config.src + config.images, ['images']);
+    watch(config.src + config.images, ['videos']);
 });
 
 // Static server
