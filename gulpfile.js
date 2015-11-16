@@ -22,14 +22,8 @@ function watch(files, task) {
     }));
 }
 
-gulp.task('build', ['scripts', 'styles', 'images', 'favicon', 'other'], function () {
+gulp.task('build', ['scripts', 'styles', 'assets', 'other'], function () {
     return inject();
-});
-
-gulp.task('favicon', function () {
-    return gulp
-        .src(config.src + config.favicon)
-        .pipe(gulp.dest(config.debug));
 });
 
 gulp.task('other', function () {

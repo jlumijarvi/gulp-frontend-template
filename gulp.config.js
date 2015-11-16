@@ -16,7 +16,8 @@ module.exports = function () {
 		scripts: 'app/**/*.js',
 		sass: 'styles/**/*.scss',
 		styles: 'styles/**/*.css',
-		images: 'images/**/*.*'
+		images: 'images/**/*.*',
+		videos: 'videos/**/*.*'
 	};
 
 	return config;
