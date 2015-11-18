@@ -10,7 +10,7 @@ module.exports = function () {
 		src: __dirname + '/src/',
 		index: 'index.html',
 		favicon: 'favicon.ico',
-		markup: 'app/**/*.html',
+		templates: 'app/**/*.html',
 		ts: 'app/**/*.ts',
 		js: 'app/**/*.js',
 		scripts: 'app/**/*.js',
@@ -22,7 +22,8 @@ module.exports = function () {
 		bower: {
 			json: require(__dirname + '/bower.json'),
 			directory: __dirname + '/bower_components/'
-		}
+		},
+		temp: build + '.tmp/'
 	};
 
 	return config;

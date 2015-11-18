@@ -14,9 +14,13 @@ function inject() {
         config.debug + 'app/app.js',
         config.debug + config.scripts
     ];
+    var options = {
+        read: false,
+        addRootSlash: false
+    };
 
     var wiredep = require('wiredep').stream;
-    var options = {
+    var wiredepOptions = {
         bowerJson: config.bower.json,
         directory: config.bower.directory,
         ignorePath: '../'
@@ -24,8 +28,8 @@ function inject() {
 
     return gulp
         .src(config.src + config.index)
-        .pipe($.inject(gulp.src(sources, { cwd: config.debug }), { read: false, addRootSlash: false }))
-        .pipe(wiredep(options))
+        .pipe($.inject(gulp.src(sources, { cwd: config.debug }), options))
+        .pipe(wiredep(wiredepOptions))
         .pipe(gulp.dest(config.debug));
 }
 
@@ -35,7 +39,7 @@ function watch(files, task) {
     }));
 }
 
-gulp.task('build', ['scripts', 'styles', 'assets', 'other', 'bower'], function () {
+gulp.task('build', ['scripts', 'styles', 'templates', 'assets', 'other', 'bower'], function () {
     return inject();
 });
 
@@ -71,7 +75,7 @@ gulp.task('watch', function () {
     
     watch(config.src + config.index, ['inject']);
     watch(config.src + config.favicon, ['favicon']);
-    watch(config.src + config.markup, ['markup']);
+    watch(config.src + config.templates, ['templates']);
     watch(config.src + config.ts, ['scripts']);
     watch(config.src + config.js, ['scripts']);
     watch(config.src + config.sass, ['styles']);
@@ -94,7 +98,7 @@ gulp.task('browser-sync', function () {
     if (!argv.r) {
         options.files = [
             config.debug + '*.*', // index.html & favicon.ico
-            config.debug + config.markup,
+            config.debug + config.templates,
             config.debug + config.scripts,
             config.debug + config.styles,
             config.debug + config.images
